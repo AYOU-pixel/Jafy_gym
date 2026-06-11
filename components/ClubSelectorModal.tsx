@@ -64,16 +64,16 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
   return (
     <div
       onClick={handleBackdropClick}
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 pb-10 pt-20 backdrop-blur-sm animate-in fade-in duration-200"
-      style={{ background: "rgba(0,0,0,0.85)" }}
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 pb-10 pt-20 backdrop-blur-md animate-in fade-in duration-200"
+      style={{ background: "rgba(0,0,0,0.88)" }}
     >
       <div
         ref={modalRef}
         className="relative w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl animate-in zoom-in-95 fade-in duration-300"
         style={{
           background: "#0a0a0a",
-          border: "1px solid rgba(161,0,255,0.2)",
-          boxShadow: "0 0 80px rgba(161,0,255,0.15), 0 40px 80px rgba(0,0,0,0.6)",
+          border: "1px solid rgba(161,0,255,0.18)",
+          boxShadow: "0 0 80px rgba(161,0,255,0.12), 0 40px 80px rgba(0,0,0,0.6)",
         }}
       >
         {/* Close button */}
@@ -81,38 +81,30 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
           ref={closeBtnRef}
           onClick={onClose}
           aria-label="Close modal"
-          className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full text-white transition-all duration-200"
-          style={{ background: "rgba(255,255,255,0.08)" }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLElement).style.background = "rgba(161,0,255,0.2)";
-            (e.currentTarget as HTMLElement).style.color = "#A100FF";
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
-            (e.currentTarget as HTMLElement).style.color = "white";
-          }}
+          className="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full text-white transition-all duration-200 hover:bg-white/[0.12] hover:text-[#A100FF]"
+          style={{ background: "rgba(255,255,255,0.06)" }}
         >
           <X className="h-4 w-4" />
         </button>
 
         {/* Header */}
-        <div className="px-6 pb-10 pt-10 text-center sm:px-10 sm:pb-12 sm:pt-12">
+        <div className="px-8 pb-12 pt-12 text-center sm:px-12 sm:pb-14 sm:pt-14">
           <h2 className="font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl">
             Choose your nearest club
           </h2>
-          <p className="mt-3 text-base text-white/55">
+          <p className="mt-4 text-[15px] text-white/50 max-w-md mx-auto leading-relaxed">
             Select a location and start your membership instantly
           </p>
           <div
-            className="mt-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider"
+            className="mt-6 inline-flex items-center gap-2.5 rounded-full px-5 py-2 text-[11px] font-semibold uppercase tracking-wider"
             style={{
-              background: "rgba(161,0,255,0.1)",
-              border: "1px solid rgba(161,0,255,0.25)",
+              background: "rgba(161,0,255,0.08)",
+              border: "1px solid rgba(161,0,255,0.2)",
               color: "#A100FF",
             }}
           >
             <span
-              className="h-1.5 w-1.5 animate-pulse rounded-full"
+              className="h-2 w-2 animate-pulse rounded-full"
               style={{ backgroundColor: "#A100FF" }}
             />
             Limited spots available this month
@@ -120,25 +112,24 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
         </div>
 
         {/* Club cards */}
-        <div className="px-6 pb-10 sm:px-10 sm:pb-12">
+        <div className="px-8 pb-12 sm:px-12 sm:pb-14">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {clubs.map((club, idx) => (
               <div
                 key={club.name}
                 className="group flex flex-col overflow-hidden rounded-xl transition-all duration-300"
                 style={{
-                  border: "1px solid rgba(161,0,255,0.12)",
-                  background: "rgba(255,255,255,0.03)",
-                  transition: "border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease",
+                  border: "1px solid rgba(161,0,255,0.1)",
+                  background: "rgba(255,255,255,0.02)",
                 }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(161,0,255,0.4)";
-                  (e.currentTarget as HTMLElement).style.background = "rgba(161,0,255,0.04)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(161,0,255,0.1)";
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(161,0,255,0.35)";
+                  (e.currentTarget as HTMLElement).style.background = "rgba(161,0,255,0.03)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(161,0,255,0.08)";
                 }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(161,0,255,0.12)";
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)";
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(161,0,255,0.1)";
+                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)";
                   (e.currentTarget as HTMLElement).style.boxShadow = "none";
                 }}
               >
@@ -151,7 +142,6 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 384px"
                   />
-                  {/* Dark gradient + subtle purple tint */}
                   <div
                     className="absolute inset-0"
                     style={{
@@ -162,18 +152,18 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
                     className="absolute inset-0"
                     style={{
                       background: idx === 0
-                        ? "linear-gradient(135deg, rgba(161,0,255,0.08) 0%, transparent 60%)"
-                        : "linear-gradient(135deg, rgba(255,45,85,0.06) 0%, transparent 60%)",
+                        ? "linear-gradient(135deg, rgba(161,0,255,0.06) 0%, transparent 60%)"
+                        : "linear-gradient(135deg, rgba(255,45,85,0.05) 0%, transparent 60%)",
                     }}
                   />
 
                   {/* Location badge */}
                   <div
-                    className="absolute left-4 top-4 flex items-center gap-2 rounded-full px-3 py-1.5"
+                    className="absolute left-5 top-5 flex items-center gap-2 rounded-full px-3.5 py-1.5"
                     style={{
                       background: "rgba(7,7,7,0.75)",
                       backdropFilter: "blur(12px)",
-                      border: "1px solid rgba(161,0,255,0.2)",
+                      border: "1px solid rgba(161,0,255,0.18)",
                     }}
                   >
                     <MapPin
@@ -185,21 +175,21 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-display text-xl font-bold text-white">{club.name}</h3>
-                  <ul className="mt-4 flex flex-1 flex-col gap-3">
+                <div className="flex flex-1 flex-col p-7">
+                  <h3 className="font-display text-lg font-bold text-white">{club.name}</h3>
+                  <ul className="mt-5 flex flex-1 flex-col gap-3">
                     {club.features.map((feature, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-3">
                         <span
                           className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md"
                           style={{
-                            background: "rgba(161,0,255,0.12)",
+                            background: "rgba(161,0,255,0.1)",
                             color: "#A100FF",
                           }}
                         >
                           <Check className="h-3.5 w-3.5" strokeWidth={3} />
                         </span>
-                        <span className="text-sm leading-relaxed text-white/65">{feature}</span>
+                        <span className="text-[13px] leading-relaxed text-white/60">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -209,19 +199,18 @@ export function ClubSelectorModal({ isOpen, onClose }: ClubSelectorModalProps) {
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(club.whatsappMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 flex w-full items-center justify-center gap-3 rounded-md px-6 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all duration-200"
+                    className="mt-7 flex w-full items-center justify-center gap-3 rounded-lg px-6 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all duration-200"
                     style={{
                       background: "linear-gradient(90deg, #A100FF, #FF2D55)",
-                      boxShadow: "0 0 0 rgba(161,0,255,0)",
                     }}
-                    onMouseEnter={e => {
+                    onMouseEnter={(e) => {
                       (e.currentTarget as HTMLElement).style.transform = "scale(1.02)";
                       (e.currentTarget as HTMLElement).style.boxShadow =
-                        "0 0 32px rgba(161,0,255,0.45), 0 0 60px rgba(255,45,85,0.2)";
+                        "0 0 32px rgba(161,0,255,0.4), 0 0 60px rgba(255,45,85,0.15)";
                     }}
-                    onMouseLeave={e => {
+                    onMouseLeave={(e) => {
                       (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 rgba(161,0,255,0)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
                     }}
                   >
                     <MessageCircle className="h-4 w-4" />

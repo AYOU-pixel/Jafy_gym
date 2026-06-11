@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Check, Zap, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { WHATSAPP_NUMBER } from "@/lib/constants"
@@ -114,78 +114,98 @@ const annuelPlans = [
   },
 ]
 
+function useScrollReveal() {
+  const ref = useRef<HTMLElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.unobserve(el)
+        }
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -60px 0px" }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return { ref, visible }
+}
+
 export function PricingSection() {
   const [duration, setDuration] = useState<"semestriel" | "annuel">("annuel")
   const currentPlans = duration === "semestriel" ? semestrielPlans : annuelPlans
+  const { ref: sectionRef, visible } = useScrollReveal()
 
   return (
     <section
+      ref={sectionRef}
       id="pricing"
-      className="py-24 lg:py-36"
-      style={{ backgroundColor: "#080808" }}
+      style={{
+        backgroundColor: "#080808",
+        paddingTop: "clamp(5rem, 10vw, 8.75rem)",
+        paddingBottom: "clamp(5rem, 10vw, 8.75rem)",
+      }}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-
-        {/* ── Section header ─────────────────────────────── */}
-        <div className="mx-auto mb-12 max-w-2xl text-center">
-          <span className="eyebrow">
-            <span
-              className="h-[5px] w-[5px] rounded-full"
-              style={{ background: "var(--gradient-primary-135)" }}
-            />
+        {/* Section header */}
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <span className="eyebrow mx-auto">
+            <span className="h-[5px] w-[5px] rounded-full" style={{ background: "var(--gradient-primary-135)" }} />
             Memberships & Pricing
           </span>
 
           <h2
-            className="mt-6 font-display font-extrabold leading-[1.02] tracking-[-0.045em] text-white text-balance"
-            style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.25rem)" }}
+            className="mt-7 font-display font-extrabold leading-[1.02] tracking-[-0.045em] text-white text-balance"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.25rem)" }}
           >
             Our Promotional{" "}
             <span className="text-gradient">Plans.</span>
           </h2>
-          <p className="mt-4 text-[13px]" style={{ color: "rgba(255,255,255,0.50)" }}>
+          <p className="mt-5 text-[14px]" style={{ color: "rgba(255,255,255,0.45)" }}>
             Exclusive offers valid for both men and women.
           </p>
 
           {/* Trust pills */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
             {trustItems.map((item) => (
               <span
                 key={item}
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium"
+                className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-medium"
                 style={{
                   border: "1px solid rgba(255,255,255,0.05)",
                   background: "rgba(255,255,255,0.018)",
-                  color: "rgba(255,255,255,0.38)",
+                  color: "rgba(255,255,255,0.40)",
                 }}
               >
-                <Check
-                  className="h-2.5 w-2.5"
-                  style={{ color: "#A020F0" }}
-                  strokeWidth={3}
-                />
+                <Check className="h-3 w-3" style={{ color: "#A020F0" }} strokeWidth={3} />
                 {item}
               </span>
             ))}
           </div>
         </div>
 
-        {/* ── Duration Toggle ─────────────────────────────── */}
+        {/* Duration Toggle */}
         <div className="mb-16 flex justify-center">
-          <div 
-            className="grid w-full max-w-[340px] grid-cols-2 gap-1 rounded-xl p-1"
+          <div
+            className="grid w-full max-w-[360px] grid-cols-2 gap-1 rounded-xl p-1"
             style={{
               background: "rgba(255,255,255,0.018)",
-              border: "1px solid rgba(255,255,255,0.05)"
+              border: "1px solid rgba(255,255,255,0.05)",
             }}
           >
             <button
               onClick={() => setDuration("semestriel")}
               className={cn(
-                "rounded-lg py-2 text-[11px] font-bold uppercase tracking-wider transition-all duration-200",
-                duration === "semestriel" 
-                  ? "text-white shadow-lg bg-[#0e0e0e]" 
-                  : "text-white/35 hover:text-white/60"
+                "rounded-lg py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200",
+                duration === "semestriel"
+                  ? "text-white shadow-lg bg-[#0e0e0e]"
+                  : "text-white/30 hover:text-white/55"
               )}
               style={duration === "semestriel" ? { border: "1px solid rgba(144,0,232,0.22)" } : {}}
             >
@@ -194,10 +214,10 @@ export function PricingSection() {
             <button
               onClick={() => setDuration("annuel")}
               className={cn(
-                "rounded-lg py-2 text-[11px] font-bold uppercase tracking-wider transition-all duration-200",
-                duration === "annuel" 
-                  ? "text-white shadow-lg bg-[#0e0e0e]" 
-                  : "text-white/35 hover:text-white/60"
+                "rounded-lg py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200",
+                duration === "annuel"
+                  ? "text-white shadow-lg bg-[#0e0e0e]"
+                  : "text-white/30 hover:text-white/55"
               )}
               style={duration === "annuel" ? { border: "1px solid rgba(144,0,232,0.22)" } : {}}
             >
@@ -206,14 +226,14 @@ export function PricingSection() {
           </div>
         </div>
 
-        {/* ── Plans grid ─────────────────────────────────── */}
-        <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
-          {currentPlans.map((plan) => (
+        {/* Plans grid */}
+        <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-3">
+          {currentPlans.map((plan, idx) => (
             <div
               key={plan.name}
-              className="relative flex flex-col rounded-2xl transition-all duration-350"
-              style={
-                plan.highlighted
+              className={`relative flex flex-col rounded-2xl transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{
+                ...(plan.highlighted
                   ? {
                       background: "#0e0e0e",
                       border: "1px solid rgba(144,0,232,0.22)",
@@ -221,25 +241,24 @@ export function PricingSection() {
                   : {
                       background: "#0a0a0a",
                       border: "1px solid rgba(255,255,255,0.035)",
-                    }
-              }
+                    }),
+                transitionDelay: `${idx * 100}ms`,
+              }}
               onMouseEnter={(e) => {
                 if (!plan.highlighted) {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    "rgba(144,0,232,0.14)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(144,0,232,0.14)"
                 }
               }}
               onMouseLeave={(e) => {
                 if (!plan.highlighted) {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    "rgba(255,255,255,0.035)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.035)"
                 }
               }}
             >
               {/* Badge */}
               {plan.badge && (
                 <span
-                  className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white"
+                  className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
                   style={{ background: "var(--gradient-primary)" }}
                 >
                   <Zap className="h-2.5 w-2.5 fill-current" strokeWidth={0} />
@@ -247,19 +266,18 @@ export function PricingSection() {
                 </span>
               )}
 
-              <div className="flex flex-1 flex-col p-7 sm:p-8">
-
-                {/* Plan name & tagline */}
+              <div className="flex flex-1 flex-col p-8 sm:p-9">
+                {/* Plan name */}
                 <div>
                   <h3
-                    className="font-display text-[1.0625rem] font-bold tracking-tight"
+                    className="font-display text-[1.125rem] font-bold tracking-tight"
                     style={{ color: "rgba(255,255,255,0.88)" }}
                   >
                     {plan.name}
                   </h3>
                   <p
-                    className="mt-1 text-[12.5px]"
-                    style={{ color: "rgba(255,255,255,0.50)" }}
+                    className="mt-1.5 text-[13px]"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
                   >
                     {plan.valueLine}
                   </p>
@@ -267,18 +285,18 @@ export function PricingSection() {
 
                 {/* Pricing */}
                 <div
-                  className="mt-7 pb-7"
+                  className="mt-8 pb-8"
                   style={{ borderBottom: "1px solid rgba(255,255,255,0.045)" }}
                 >
                   <div className="flex items-baseline gap-1.5">
                     <span
-                      className="text-[12px] font-medium"
-                      style={{ color: "rgba(255,255,255,0.28)" }}
+                      className="text-[13px] font-medium"
+                      style={{ color: "rgba(255,255,255,0.30)" }}
                     >
                       DH
                     </span>
                     <span
-                      className="font-display text-[3.25rem] font-extrabold leading-none tracking-[-0.04em]"
+                      className="font-display text-[3.5rem] font-extrabold leading-none tracking-[-0.04em]"
                       style={
                         plan.highlighted
                           ? { color: "#A020F0" }
@@ -288,14 +306,14 @@ export function PricingSection() {
                       {plan.price}
                     </span>
                     <span
-                      className="text-[12px]"
-                      style={{ color: "rgba(255,255,255,0.28)" }}
+                      className="text-[13px]"
+                      style={{ color: "rgba(255,255,255,0.30)" }}
                     >
                       {duration === "semestriel" ? "/ 6 mos" : "/ yr"}
                     </span>
                   </div>
                   <p
-                    className="mt-1.5 text-[11px]"
+                    className="mt-2 text-[12px]"
                     style={{ color: "rgba(255,255,255,0.35)" }}
                   >
                     ≈ DH {plan.daily} / day
@@ -303,11 +321,11 @@ export function PricingSection() {
                 </div>
 
                 {/* Features */}
-                <ul className="mt-7 flex flex-1 flex-col gap-3">
+                <ul className="mt-8 flex flex-1 flex-col gap-3.5">
                   {plan.features.map((feature) => (
                     <li key={feature.text} className="flex items-start gap-3">
                       <span
-                        className="mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full"
+                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
                         style={
                           plan.highlighted
                             ? {
@@ -322,9 +340,7 @@ export function PricingSection() {
                       >
                         <Check className="h-2.5 w-2.5" strokeWidth={3} />
                       </span>
-                      <span
-                        className="text-[13px] leading-[1.65] text-white/65"
-                      >
+                      <span className="text-[13px] leading-[1.65] text-white/60">
                         {feature.text}
                       </span>
                     </li>
@@ -337,7 +353,7 @@ export function PricingSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    "mt-8 inline-flex w-full items-center justify-center gap-2 rounded-lg py-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white transition-all duration-200 focus-visible:outline focus-visible:outline-2 hover:-translate-y-0.5",
+                    "mt-9 inline-flex w-full items-center justify-center gap-2 rounded-xl py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-all duration-200 focus-visible:outline focus-visible:outline-2 hover:-translate-y-0.5 min-h-[52px]",
                     plan.highlighted ? "btn-primary" : "btn-ghost"
                   )}
                 >
@@ -351,12 +367,12 @@ export function PricingSection() {
 
         {/* Footer note */}
         <p
-          className="mt-10 text-center text-[11px] tracking-wide"
-          style={{ color: "rgba(255,255,255,0.35)" }}
+          className="mt-12 text-center text-[12px] tracking-wide"
+          style={{ color: "rgba(255,255,255,0.30)" }}
         >
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex items-center gap-2.5">
             <span
-              className="h-1 w-1 rounded-full"
+              className="h-1.5 w-1.5 rounded-full"
               style={{ background: "var(--gradient-primary-135)" }}
             />
             Spots are limited — join now to secure your promotional offer.

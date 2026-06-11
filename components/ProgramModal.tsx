@@ -67,17 +67,18 @@ export function ProgramModal({
   return (
     <div
       onClick={handleBackdropClick}
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/80 p-4 backdrop-blur-md animate-in fade-in duration-200"
     >
       <div
         ref={modalRef}
         className="relative my-auto w-full max-w-lg overflow-hidden rounded-2xl bg-[#0f0f0f] shadow-2xl animate-in zoom-in-95 fade-in duration-300"
+        style={{ border: "1px solid rgba(255,255,255,0.04)" }}
       >
         <button
           ref={closeBtnRef}
           onClick={onClose}
           aria-label="Close modal"
-          className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+          className="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/[0.12] hover:text-white/90"
         >
           <X className="h-4 w-4" />
         </button>
@@ -100,7 +101,7 @@ export function ProgramModal({
                   prevImage();
                 }}
                 aria-label="Previous image"
-                className="absolute left-4 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70"
+                className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/70 hover:scale-105"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -110,19 +111,19 @@ export function ProgramModal({
                   nextImage();
                 }}
                 aria-label="Next image"
-                className="absolute right-4 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all hover:bg-black/70"
+                className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/70 hover:scale-105"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
             </>
           )}
 
-          <div className="absolute bottom-5 left-6 right-6 flex items-end justify-between gap-4">
+          <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
             <h3 className="font-display text-2xl font-extrabold leading-tight text-white sm:text-3xl">
               {title}
             </h3>
             {images.length > 1 && (
-              <div className="flex shrink-0 items-center gap-1.5 pb-1">
+              <div className="flex shrink-0 items-center gap-2 pb-1">
                 {images.map((_, index) => (
                   <button
                     key={index}
@@ -133,7 +134,7 @@ export function ProgramModal({
                     className={cn(
                       "h-1.5 rounded-full transition-all duration-300",
                       index === currentImageIndex
-                        ? "w-5 bg-primary"
+                        ? "w-6 bg-primary"
                         : "w-1.5 bg-white/30 hover:bg-white/60"
                     )}
                     aria-label={`Go to image ${index + 1}`}
@@ -144,24 +145,28 @@ export function ProgramModal({
           </div>
         </div>
 
-        <div className="p-6 sm:p-8">
-          <div className="mb-6 flex items-center gap-3 border-b border-white/8 pb-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/15">
+        <div className="p-7 sm:p-9">
+          <div className="mb-7 flex items-center gap-3 border-b border-white/[0.06] pb-7">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/10">
               <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
             </div>
-            <p className="text-sm text-white/50">
-              <span className="font-semibold text-white/80">We reply in under 5 minutes</span>
-              {" "}· Available now on WhatsApp
-            </p>
+            <div>
+              <p className="text-[13px] font-semibold text-white/80">
+                We reply in under 5 minutes
+              </p>
+              <p className="text-[12px] text-white/40">
+                Available now on WhatsApp
+              </p>
+            </div>
           </div>
 
-          <ul className="mb-8 flex flex-col gap-3.5">
+          <ul className="mb-9 flex flex-col gap-4">
             {bullets.map((bullet, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary/20 text-primary">
+              <li key={index} className="flex items-start gap-3.5">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
                   <Check className="h-3.5 w-3.5" strokeWidth={3} />
                 </span>
-                <span className="text-sm leading-relaxed text-white/70">{bullet}</span>
+                <span className="text-[14px] leading-relaxed text-white/65">{bullet}</span>
               </li>
             ))}
           </ul>
@@ -170,14 +175,14 @@ export function ProgramModal({
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex w-full items-center justify-center gap-2.5 rounded-md bg-primary px-8 py-4 text-sm font-bold uppercase tracking-wider text-[#0a0a0a] transition-all hover:scale-[1.02] hover:shadow-[0_0_32px_rgba(214,255,0,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            className="group flex w-full items-center justify-center gap-3 rounded-xl bg-primary px-8 py-4 text-[13px] font-bold uppercase tracking-wider text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(144,0,232,0.3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
           >
             <MessageCircle className="h-4 w-4" />
             Join via WhatsApp
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </a>
 
-          <p className="mt-3 text-center text-[11px] text-white/30">
+          <p className="mt-4 text-center text-[11px] text-white/25">
             No commitment required · Cancel anytime
           </p>
         </div>
