@@ -12,6 +12,41 @@ const trustItems = [
   "Instant registration",
 ]
 
+const mensuelPlans = [
+  {
+    name: "1 Month Access",
+    price: "199",
+    daily: 6.6,
+    valueLine: "Perfect for trying out our facilities.",
+    features: [
+      { text: "Full Gym & Cardio access", inherited: false },
+      { text: "Validity: 1 Month", inherited: false },
+      { text: "No commitment required", inherited: false },
+      { text: "Instant registration", inherited: false },
+    ],
+    cta: "Choose 1 Month",
+    whatsappMessage: "Hello, I would like to take advantage of the 1 Month Access (199 DH)",
+    highlighted: false,
+    badge: null,
+  },
+  {
+    name: "3 Months Access",
+    price: "499",
+    daily: 5.5,
+    valueLine: "Commit a little, save a little.",
+    features: [
+      { text: "Full Gym & Cardio access", inherited: false },
+      { text: "Validity: 3 Months", inherited: false },
+      { text: "Save 98 DH vs monthly", inherited: false },
+      { text: "Instant registration", inherited: false },
+    ],
+    cta: "Choose 3 Months",
+    whatsappMessage: "Hello, I would like to take advantage of the 3 Months Access (499 DH)",
+    highlighted: true,
+    badge: "Best Value",
+  },
+]
+
 const semestrielPlans = [
   {
     name: "Standard Promo (6 Months)",
@@ -138,8 +173,13 @@ function useScrollReveal() {
 }
 
 export function PricingSection() {
-  const [duration, setDuration] = useState<"semestriel" | "annuel">("annuel")
-  const currentPlans = duration === "semestriel" ? semestrielPlans : annuelPlans
+  const [duration, setDuration] = useState<"mensuel" | "semestriel" | "annuel">("annuel")
+  
+  const currentPlans = 
+    duration === "mensuel" ? mensuelPlans : 
+    duration === "semestriel" ? semestrielPlans : 
+    annuelPlans
+
   const { ref: sectionRef, visible } = useScrollReveal()
 
   return (
@@ -193,12 +233,24 @@ export function PricingSection() {
         {/* Duration Toggle */}
         <div className="mb-16 flex justify-center">
           <div
-            className="grid w-full max-w-[360px] grid-cols-2 gap-1 rounded-xl p-1"
+            className="grid w-full max-w-[480px] grid-cols-3 gap-1 rounded-xl p-1"
             style={{
               background: "rgba(255,255,255,0.018)",
               border: "1px solid rgba(255,255,255,0.05)",
             }}
           >
+            <button
+              onClick={() => setDuration("mensuel")}
+              className={cn(
+                "rounded-lg py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200",
+                duration === "mensuel"
+                  ? "text-white shadow-lg bg-[#0e0e0e]"
+                  : "text-white/30 hover:text-white/55"
+              )}
+              style={duration === "mensuel" ? { border: "1px solid rgba(144,0,232,0.22)" } : {}}
+            >
+              Monthly
+            </button>
             <button
               onClick={() => setDuration("semestriel")}
               className={cn(
@@ -227,7 +279,11 @@ export function PricingSection() {
         </div>
 
         {/* Plans grid */}
-        <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-3">
+        <div className={`grid gap-5 items-stretch ${
+          duration === "mensuel" 
+            ? "grid-cols-1 md:grid-cols-2 max-w-2xl mx-auto" 
+            : "grid-cols-1 lg:grid-cols-3"
+        }`}>
           {currentPlans.map((plan, idx) => (
             <div
               key={plan.name}
@@ -309,7 +365,12 @@ export function PricingSection() {
                       className="text-[13px]"
                       style={{ color: "rgba(255,255,255,0.30)" }}
                     >
-                      {duration === "semestriel" ? "/ 6 mos" : "/ yr"}
+                      {duration === "mensuel" 
+                        ? plan.name.includes("3") ? "/ 3 mos" : "/ mo"
+                        : duration === "semestriel" 
+                          ? "/ 6 mos" 
+                          : "/ yr"
+                      }
                     </span>
                   </div>
                   <p

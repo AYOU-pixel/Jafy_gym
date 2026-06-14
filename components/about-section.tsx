@@ -109,53 +109,6 @@ export function AboutSection() {
                 }}
               />
             </div>
-
-            {/* Inset secondary image */}
-            <div
-              className="absolute bottom-8 right-8 h-44 w-36 overflow-hidden rounded-xl sm:h-52 sm:w-44"
-              style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-            >
-              <Image
-                src="/c2.jpg"
-                alt="Olympic Jafy Gym Club 2"
-                fill
-                className="object-cover"
-                sizes="176px"
-                loading="lazy"
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: "linear-gradient(to top, rgba(8,8,8,0.6) 0%, transparent 100%)",
-                }}
-              />
-              <div className="absolute bottom-3 left-0 right-0 text-center">
-                <span
-                  className="text-[10px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: "rgba(255,255,255,0.35)" }}
-                >
-                  Club 2
-                </span>
-              </div>
-            </div>
-
-            {/* Location badge */}
-            <div
-              className="absolute left-6 top-6 flex items-center gap-2 rounded-full px-3.5 py-1.5"
-              style={{
-                background: "rgba(8,8,8,0.65)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <MapPin className="h-3.5 w-3.5" style={{ color: "rgba(255,255,255,0.40)" }} />
-              <span
-                className="text-[10px] font-medium uppercase tracking-[0.14em]"
-                style={{ color: "rgba(255,255,255,0.50)" }}
-              >
-                Club 1 · Layayda
-              </span>
-            </div>
           </div>
 
           {/* ── Content column ── */}
