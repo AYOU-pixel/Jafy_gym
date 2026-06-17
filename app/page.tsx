@@ -3,11 +3,13 @@ import { SiteNavbar } from "@/components/site-navbar"
 import { HeroSection } from "@/components/hero-section"
 import { ProgramsSection } from "@/components/programs-section"
 import { AboutSection } from "@/components/about-section"
+import { RulesSection } from "@/components/rules-section"
+import { ShopSection } from "@/components/shop-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { PricingSection } from "@/components/pricing-section"
 import { FinalCta } from "@/components/final-cta"
 import { SiteFooter } from "@/components/site-footer"
-
+import { HoursSection } from "@/components/hours-section"
 function SectionSkeleton() {
   return (
     <section className="animate-pulse bg-[#080808]" style={{ minHeight: "60vh" }}>
@@ -28,12 +30,15 @@ export default function HomePage() {
         <HeroSection />
         <ProgramsSection />
         <AboutSection />
+        <RulesSection />
         <Suspense fallback={<SectionSkeleton />}>
           <TestimonialsSection />
         </Suspense>
         <Suspense fallback={<SectionSkeleton />}>
           <PricingSection />
         </Suspense>
+        <ShopSection />
+        <HoursSection />
         <FinalCta />
       </main>
       <SiteFooter />
