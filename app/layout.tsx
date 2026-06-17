@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Olympic Jafy Gym — Train Hard. Become Stronger.",
+  title: "Olympic Jafy Gym ",
   description:
     "Olympic Jafy Gym — Musculation & Arts Martiaux. Premium fitness facility with strength training, cardio, and martial arts programs in Layayda, Salé. Two clubs, one membership.",
   keywords: ["gym", "fitness", "musculation", "martial arts", "Salé", "Morocco", "personal training", "women only gym", "cardio", "strength training"],
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Olympic Jafy Gym — Train Hard. Become Stronger.",
+    title: "Olympic Jafy Gym ",
     description: "Premium fitness facility with strength training, cardio, and martial arts programs. Two clubs in Salé, one membership.",
     type: "website",
     locale: "fr_FR",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Olympic Jafy Gym — Train Hard. Become Stronger.",
+    title: "Olympic Jafy Gym ",
     description: "Premium fitness facility with strength training, cardio, and martial arts programs in Salé, Morocco.",
   },
   alternates: {
