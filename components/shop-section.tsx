@@ -9,9 +9,8 @@ const photos = [
   { id: "01", image: "1.jpg" }, // TODO: "/shop/accessories.jpg"
   { id: "02", image: "2.jpg" }, // TODO: "/shop/bulk.jpg"
   { id: "03", image: "3.jpg" }, // TODO: "/shop/drinks.jpg"
-  { id: "04", image: "3.jpg" }, // TODO: "/shop/caps.jpg"
-  { id: "05", image: "4.jpg" }, // TODO: "/shop/supplements.jpg"
-  { id: "06", image: "5.jpg" }, // TODO: "/shop/nutrition.jpg"
+  { id: "04", image: "4.jpg" }, 
+  { id: "05", image: "6.jpg" },// TODO: "/shop/caps.jpg" // TODO: "/shop/nutrition.jpg"
 ]
 
 function useScrollReveal() {
@@ -88,7 +87,6 @@ export function ShopSection() {
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               )}
               style={{
-                aspectRatio: "4/3",
                 border: "1px solid rgba(255,255,255,0.04)",
                 background: "#0f0f0f",
                 transitionDelay: `${idx * 60}ms`,
@@ -104,13 +102,17 @@ export function ShopSection() {
                 <Image
                   src={photo.image}
                   alt=""
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  width={800}
+                  height={600}
+                  className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.04]"
                   sizes="(max-width: 640px) 50vw, 33vw"
                   loading="lazy"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center">
+                <div 
+                  className="flex items-center justify-center"
+                  style={{ aspectRatio: "4/3" }}
+                >
                   <ShoppingBag
                     strokeWidth={1.25}
                     style={{ width: "1.75rem", height: "1.75rem", color: "rgba(144,0,232,0.2)" }}
