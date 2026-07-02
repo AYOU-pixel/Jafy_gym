@@ -111,6 +111,7 @@ export function FinalCta() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary min-h-[52px] px-8"
+            style={{ background: "#25D366" }}
           >
             Join Now via WhatsApp
             <ArrowRight className="h-3.5 w-3.5" />

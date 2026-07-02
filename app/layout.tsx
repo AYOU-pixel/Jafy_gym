@@ -32,6 +32,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.olympicjafygym.com"),
   title: "Olympic Jafy Gym ",
   description:
     "Olympic Jafy Gym — Musculation & Arts Martiaux. Premium fitness facility with strength training, cardio, and martial arts programs in Layayda, Salé. Two clubs, one membership.",
@@ -63,8 +64,8 @@ export const metadata: Metadata = {
     description: "Premium fitness facility with strength training, cardio, and martial arts programs in Salé, Morocco.",
   },
   alternates: {
-    canonical: "/",
-  },
+  canonical: "https://www.olympicjafygym.com",
+},
 }
 
 export default function RootLayout({
@@ -78,6 +79,10 @@ export default function RootLayout({
         <link rel="icon" href="/icone.png" type="image/png" />
         <link rel="apple-touch-icon" href="/icone.png" />
         <meta name="format-detection" content="telephone=no" />
+        <meta
+  name="google-site-verification"
+  content="H5jlsX1LZOjK9fm_hts06Fhzthohs8eEdNE1Ax2nR2A"
+/>
       </head>
       <body className="font-sans antialiased selection:bg-primary/20 selection:text-white">
         {children}
