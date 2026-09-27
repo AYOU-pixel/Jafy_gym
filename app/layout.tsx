@@ -79,10 +79,7 @@ export default function RootLayout({
         <link rel="icon" href="/icone.png" type="image/png" />
         <link rel="apple-touch-icon" href="/icone.png" />
         <meta name="format-detection" content="telephone=no" />
-        <meta
-  name="google-site-verification"
-  content="H5jlsX1LZOjK9fm_hts06Fhzthohs8eEdNE1Ax2nR2A"
-/>
+        <meta name="google-site-verification" content="4CylqooZuqSKUnfe-UmHB_o7nTXCEvttW43es79p7cM" />
       </head>
       <body className="font-sans antialiased selection:bg-primary/20 selection:text-white">
         {children}
